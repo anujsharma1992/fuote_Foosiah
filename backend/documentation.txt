@@ -1,6 +1,6 @@
 Register a cook
 
-endpoint /cook/register 
+endpoint /register/cook
 body {
   email : String,
   password: String,
@@ -19,7 +19,7 @@ body {
 }
 
 Register a customer
-endpoint /customer/register
+endpoint /register/customer
 
 body {
   email : String,
