@@ -87,6 +87,27 @@ CustomerSchema.methods.generateAuthToken = function() {
   });
 };
 
+CustomerSchema.statics.findByCredentials = function(email,password) {
+  let Customer = this;
+  return Customer.findOne({
+    email
+  }).then((customer) => {
+    if (!customer) {
+      return Promise.reject({
+        e: 'Customer not found for the given email'
+      });
+    }
+
+    return new Promise((res,rej) => {
+      bcrypt.compare(password, customer.password).then((isValid) => {
+        if (isValid) res(customer);
+        else rej({ error: 'Password is not valid' });
+      }).catch(e => rej(e));
+    });
+
+  });
+};
+
 CustomerSchema.statics.findByToken = function(token) {
   let customer = this;
   let decoded;

@@ -90,6 +90,27 @@ CookSchema.methods.generateAuthToken = function() {
   });
 };
 
+CookSchema.statics.findByCredentials = function(email,password) {
+  let Cook = this;
+  return Cook.findOne({
+    email
+  }).then((cook) => {
+    if (!cook) {
+      return Promise.reject({
+        e: `Cook not found for the email ${email}`
+      });
+    }
+
+    return new Promise((res,rej) => {
+      bcrypt.compare(password, cook.password).then((isValid) => {
+        if (isValid) res(cook);
+        else rej({ error: 'Password is not valid' });
+      }).catch(e => rej(e));
+    });
+
+  });
+};
+
 CookSchema.statics.findByToken = function(token) {
   let Cook = this;
   let decoded;
