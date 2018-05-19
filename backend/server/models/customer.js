@@ -124,7 +124,18 @@ CustomerSchema.statics.findByToken = function(token) {
     'tokens.access': 'auth'
   });
 
-}
+};
+
+CustomerSchema.methods.removeToken = function(token) {
+  let user = this;
+  return user.update({
+    $pull: {
+      tokens: {
+        token
+      }
+    }
+  });
+};  
 
 CustomerSchema.pre('save', function(next) {
   let customer = this;

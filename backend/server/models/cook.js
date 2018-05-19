@@ -127,7 +127,18 @@ CookSchema.statics.findByToken = function(token) {
     'tokens.access': 'auth'
   });
 
-}
+};
+
+CookSchema.methods.removeToken = function(token) {
+  let user = this;
+  return user.update({
+    $pull: {
+      tokens: {
+        token
+      }
+    }
+  });
+}; 
 
 CookSchema.pre('save', function(next) {
   let cook = this;

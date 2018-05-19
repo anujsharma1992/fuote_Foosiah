@@ -8,6 +8,7 @@ const { Customer } = require('./models/customer');
 const { mongoose } = require('./db/mongoose');
 const registerRoutes = require('./routes/register');
 const loginRoutes = require('./routes/login');
+const logoutRoutes = require('./routes/logout');
 
 const SERVER_PORT = process.env.PORT || 3000;
 
@@ -23,6 +24,9 @@ app.use('/register', registerRoutes);
 
 // routes to login cook or customer
 app.use('/login', loginRoutes);
+
+// routes to logout cook or customer
+app.use('/logout', logoutRoutes);
 
 app.listen(SERVER_PORT , () => {
   console.log(`Server started at port ${SERVER_PORT}`)
