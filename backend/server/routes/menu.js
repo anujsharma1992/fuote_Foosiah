@@ -3,6 +3,7 @@ const express = require('express');
 const _ = require('lodash');
 const { Menu } = require('./../models/menu');
 const { authenticateCook, authenticateCustomer } = require('./../middleware/authenticate');
+const {ObjectID} = require('mongodb');
 
 const router = express.Router();
 
@@ -43,6 +44,37 @@ router.get('/all', authenticateCook, (req,res) => {
         error
       });;
   });
+});
+
+router.get('/activate', authenticateCook, (req,res) => {
+  const menuId = req.header('menu-id');
+  if (_.isNull(menuId) || _.isEmpty(menuId) || !(ObjectID.isValid(menuId))) {
+    return res.status(400).send({
+      status: "error",
+      error: "Invalid Menu ID"
+    });
+  }
+
+  Menu.findOneAndUpdate({
+    _id: ObjectID(menuId)
+  },
+  {
+    $set: {
+      isActive: true
+    }
+  }
+).then((item) => {
+  item.isActive = true;
+  res.status(200).send({
+    status: 'OK',
+    menuItem: item,
+    error: "null"
+  });
+}).catch((error) => {
+  error.status = "error";
+  error.menuItem = "null";
+  res.status(400).send(error);
+});
 });
 
 module.exports = router;
