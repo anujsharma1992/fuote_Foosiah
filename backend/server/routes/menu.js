@@ -26,6 +26,25 @@ router.post('/add', authenticateCook, (req,res) => {
   }); 
 });
 
+router.get('/all', authenticateCook, (req,res) => {
+  const cook = req.cook;
+  Menu.find({
+    cookId: cook._id
+  }).then((items) => {
+    return res.status(200).send({
+      status: 'OK',
+      menuItems: items,
+      error: "null"
+    });
+    }).catch((error) => {
+      return res.status(400).send({
+        status: 'error',
+        menuItems: "null",
+        error
+      });;
+  });
+});
+
 module.exports = router;
 
 
