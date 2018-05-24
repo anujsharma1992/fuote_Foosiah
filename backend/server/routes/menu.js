@@ -46,8 +46,8 @@ router.get('/all', authenticateCook, (req,res) => {
   });
 });
 
-router.get('/activate', authenticateCook, (req,res) => {
-  const menuId = req.header('menu-id');
+router.post('/activate/:menuId', authenticateCook, (req,res) => {
+  const menuId = req.params.menuId;
   if (_.isNull(menuId) || _.isEmpty(menuId) || !(ObjectID.isValid(menuId))) {
     return res.status(400).send({
       status: "error",
