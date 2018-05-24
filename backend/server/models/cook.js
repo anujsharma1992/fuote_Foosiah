@@ -118,7 +118,12 @@ CookSchema.statics.findByToken = function(token) {
   try {
     decoded = jwt.verify(token, SECRET_KEY);
   } catch (e) {
-    return Promise.reject();
+    if (e.name === 'JsonWebTokenError') {
+      return Promise.reject({
+        error: 'Token format not valid.'
+      });
+    }
+    return Promise.reject(e);
   }
 
   return Cook.findOne({

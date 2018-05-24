@@ -9,6 +9,8 @@ const { mongoose } = require('./db/mongoose');
 const registerRoutes = require('./routes/register');
 const loginRoutes = require('./routes/login');
 const logoutRoutes = require('./routes/logout');
+const detailRoutes = require('./routes/details');
+const menuRoutes = require('./routes/menu');
 
 const SERVER_PORT = process.env.PORT || 3000;
 
@@ -27,6 +29,12 @@ app.use('/login', loginRoutes);
 
 // routes to logout cook or customer
 app.use('/logout', logoutRoutes);
+
+// routes to get details of cook or customer
+app.use('/details', detailRoutes);
+
+// routes related to menu items
+app.use('/menu', menuRoutes);
 
 app.listen(SERVER_PORT , () => {
   console.log(`Server started at port ${SERVER_PORT}`)

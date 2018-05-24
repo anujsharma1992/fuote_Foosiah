@@ -5,14 +5,16 @@ let authenticateCook = (req,res,next) => {
   let token = req.header('x-auth');
   Cook.findByToken(token).then((cook) => {
     if(!cook) {
-      return Promise.reject();
+      return Promise.reject({
+        e: 'Cook not found'
+      });
     }
     req.cook = cook;
     req.token = token;
     next();
   }).catch((e) => {
     // handle error
-    res.send(401).send(e);
+    res.status(401).send(e);
   });
 };
 
@@ -29,7 +31,7 @@ let authenticateCustomer = (req,res,next) => {
     next();
   }).catch((e) => {
     // handle error later
-    res.send(401).send(e);
+    res.status(401).send(e);
   });
 };
 

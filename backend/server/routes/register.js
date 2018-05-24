@@ -14,7 +14,9 @@ router.post('/cook', (req,res) => {
   }).then((cook) => {
     if (cook) {
       return res.status(400).send({
-        error: 'User with email already exists'
+        status: "400",
+        error: 'User with email already exists',
+        token: "null"
       });
     }
     let cookToSave = new Cook(body);
@@ -24,11 +26,16 @@ router.post('/cook', (req,res) => {
   }).then((token) => {
     res.status(200).send({
       status: 'OK',
-      token
+      token,
+      error: null
     });
-  }).catch((e) => {
+  }).catch((error) => {
     // handle error case
-    res.status(400).send(e);
+    res.status(400).send({
+      status: "400",
+      token: "null",
+      error
+    });
   });
 
 });
@@ -41,7 +48,9 @@ router.post('/customer', (req,res) => {
   }).then((customer) => {
     if (customer) {
       return res.status(400).send({
-        error: 'User with email already exists'
+        status: "error",
+        error: 'User with email already exists',
+        token: "null"
       });
     }
     let customerToSave = Customer(body);
@@ -51,10 +60,15 @@ router.post('/customer', (req,res) => {
   }).then((token) => {
     res.status(200).send({
       status: 'OK',
-      token
+      token,
+      error: "null"
     });
-  }).catch((e) => {
-    res.status(400).send(e);
+  }).catch((error) => {
+    res.status(400).send({
+      status: "404",
+      token: "null",
+      error
+    });
   });
 
 });

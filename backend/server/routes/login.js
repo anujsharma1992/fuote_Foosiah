@@ -13,10 +13,15 @@ router.post('/cook', (req,res) => {
   }).then((token) => {
     res.status(200).send({
       status: "OK",
-      token
+      token,
+      error: null
     });
-  }).catch((e) => {
-    res.status(400).send(e);
+  }).catch((error) => {
+    res.status(400).send({
+      status: "400",
+      token: "null",
+      error
+    });
   });
 });
 
@@ -27,10 +32,15 @@ router.post('/customer', (req,res) => {
   }).then((token) => {
     res.status(200).send({
       status: "OK",
-      token
+      token,
+      error: null
     });
-  }).catch((e) => {
-    res.status(400).send(e);
+  }).catch((error) => {
+    res.status(400).send({
+      status: "400",
+      token: "null",
+      error
+    });
   });
 });
 

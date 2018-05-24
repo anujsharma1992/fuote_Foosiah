@@ -12,10 +12,12 @@ router.delete('/customer', authenticateCustomer , (req,res) => {
   const user = req.customer;
   user.removeToken(token).then(() =>{
     res.status(200).send({
-      status: 'OK'
+      status: 'OK',
+      error: "null"
     });
   }).catch((error) => {
     res.status(404).send({
+      status: "404",
       error
     });
   });
@@ -26,10 +28,12 @@ router.delete('/cook', authenticateCook, (req,res) => {
   const user = req.cook;
   user.removeToken(token).then(() =>{
     res.status(200).send({
-      status: 'OK'
+      status: 'OK',
+      error: "null"
     });
   }).catch((error) => {
     res.status(404).send({
+      status: "error",
       error
     });
   });
