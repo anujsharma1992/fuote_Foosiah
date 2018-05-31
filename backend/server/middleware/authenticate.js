@@ -12,9 +12,10 @@ let authenticateCook = (req,res,next) => {
     req.cook = cook;
     req.token = token;
     next();
-  }).catch((e) => {
+  }).catch((error) => {
     // handle error
-    res.status(401).send(e);
+    error.status = "error";
+    res.status(401).send(error);
   });
 };
 
