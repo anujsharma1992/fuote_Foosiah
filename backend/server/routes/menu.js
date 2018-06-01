@@ -8,6 +8,7 @@ const {Cook} = require('./../models/cook');
 
 const router = express.Router();
 
+// route to add new menu items
 router.post('/add', authenticateCook, (req,res) => {
   const cook = req.user;
   const items = _.pick(req.body, ['menuItems']);
@@ -28,6 +29,7 @@ router.post('/add', authenticateCook, (req,res) => {
   }); 
 });
 
+// get all menu items of a specific cook
 router.get('/all/me', authenticateCook, (req,res) => {
   const cook = req.cook;
   Menu.find({
@@ -47,6 +49,7 @@ router.get('/all/me', authenticateCook, (req,res) => {
   });
 });
 
+// get all activated items. 
 router.get('/all/activated', (req,res) => {
   let pageNo = parseInt(req.query.pageNo);
 
@@ -82,6 +85,7 @@ router.get('/all/activated', (req,res) => {
 
 });
 
+// activate a specific menu item
 router.post('/activate/:menuId', authenticateCook, (req,res) => {
   const menuId = req.params.menuId;
   if (_.isNull(menuId) || _.isEmpty(menuId) || !(ObjectID.isValid(menuId))) {
@@ -113,6 +117,7 @@ router.post('/activate/:menuId', authenticateCook, (req,res) => {
 });
 });
 
+// get all activated items of a specific cook
 router.get('/activated', (req,res) => {
   const token = req.header('x-auth');
   Cook.findByToken(token).then((cook) => {
