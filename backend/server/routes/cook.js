@@ -145,6 +145,7 @@ router.post('/fcmToken/:token', authenticateCook, (req,res) => {
  });
 });
 
+// get all activated cooks
 router.get('/all/activated', (req,res) => {
   const page = req.query.page;
   
