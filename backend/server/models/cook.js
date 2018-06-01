@@ -66,7 +66,10 @@ const CookSchema = mongoose.Schema({
     default: false 
   },
   // fcm token from firebase for push notifications
-  fcmToken: String
+  fcmToken: {
+    type: String,
+    default: ""
+  }
   // to add payment details
 });
 

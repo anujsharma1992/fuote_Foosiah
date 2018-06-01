@@ -153,6 +153,7 @@ router.get('/activated', (req,res) => {
   });
 });
 
+// route to deactivate a menu item
 router.post('/deactivate/:menuId', authenticateCook,  (req,res) => {
   const menuId = req.params.menuId;
   if (_.isNull(menuId) || _.isEmpty(menuId) || !(ObjectID.isValid(menuId))) {
