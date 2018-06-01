@@ -48,21 +48,38 @@ router.get('/all/me', authenticateCook, (req,res) => {
 });
 
 router.get('/all/activated', (req,res) => {
-  Menu.find({
+  let pageNo = parseInt(req.query.pageNo);
+
+  if (pageNo < 1) {
+    return res.status(400).send({
+      status: '400',
+      menuItems: null,
+      error: "Page Number has to be atleast 1"
+    });
+  }
+
+  Menu.paginate({
     isActive: true
+  }, {
+    page: pageNo,
+    limit: 2
   }).then((items) => {
+    console.log(items);
     res.status(200).send({
       status: 'OK',
-      menuItems: items,
-      error: "null"
+      menuItems: items.docs,
+      error: "null",
+      totalPages: items.pages
     });
   }).catch((error) => {
+    console.log(error);
     res.status(400).send({
       status: '400',
       menuItems: null,
       error
     });
   });
+
 });
 
 router.post('/activate/:menuId', authenticateCook, (req,res) => {
@@ -126,6 +143,7 @@ router.get('/activated', (req,res) => {
   }).catch((error) => {
     error.status = "error";
     error.items = "null";
+    console.log(error);
     res.status(400).send(error);
   });
 });
