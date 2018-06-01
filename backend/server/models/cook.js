@@ -4,6 +4,7 @@ const _ = require('lodash');
 const jwt = require('jsonwebtoken');
 const { SECRET_KEY } = require('./../utils/utils.js');
 const bcrypt = require('bcryptjs');
+var mongoosePaginate = require('mongoose-paginate');
 
 const CookSchema = mongoose.Schema({
   email: {
@@ -166,6 +167,7 @@ CookSchema.pre('save', function(next) {
 
 });
 
+CookSchema.plugin(mongoosePaginate);
 const Cook = mongoose.model('Cook', CookSchema);
 
 module.exports = { Cook };

@@ -83,4 +83,34 @@ router.post('/fcmToken/:token', authenticateCook, (req,res) => {
  });
  });
 
+ router.get('/all', (req,res) => {
+   const page = req.query.page;
+
+   if (page < 1) {
+    return res.status(400).send({
+      status: '400',
+      menuItems: null,
+      error: "Page Number has to be atleast 1"
+    });
+  }
+
+  Cook.paginate({}, {
+    page,
+    limit: 10
+  }).then((cooks) => {
+    res.status(200).send({
+      status: 'OK',
+      cooks: cooks.docs,
+      error: null,
+      totalPages : cooks.pages
+    });
+  }).catch((error) => {
+    error.status = '400';
+    error.cooks = null;
+    error.totalPages = null;
+    res.status(400).send(error);
+  });
+
+ });
+
 module.exports = router;
