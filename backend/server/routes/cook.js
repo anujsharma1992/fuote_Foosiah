@@ -6,6 +6,7 @@ const {ObjectID} = require('mongodb');
 
 const router = express.Router();
 
+// route to update the fcmToken of a cook
 router.post('/fcmToken/:token', authenticateCook, (req,res) => {
   const cook = req.cook;
   const token = req.params.token;
@@ -29,6 +30,7 @@ router.post('/fcmToken/:token', authenticateCook, (req,res) => {
   });
 });
 
+// activate a cook
  router.post('/activate', authenticateCook, (req,res) => {
    const cook = req.cook;
    if (cook.isActive) {
@@ -56,6 +58,7 @@ router.post('/fcmToken/:token', authenticateCook, (req,res) => {
   });
  });
 
+ // deactivate a cook
  router.post('/deactivate', authenticateCook, (req,res) => {
   const cook = req.cook;
   if (!cook.isActive) {
@@ -83,6 +86,7 @@ router.post('/fcmToken/:token', authenticateCook, (req,res) => {
  });
  });
 
+ // get all cooks
  router.get('/all', (req,res) => {
    const page = req.query.page;
 
