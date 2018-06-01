@@ -153,6 +153,37 @@ router.get('/activated', (req,res) => {
   });
 });
 
+router.post('/deactivate/:menuId', authenticateCook,  (req,res) => {
+  const menuId = req.params.menuId;
+  if (_.isNull(menuId) || _.isEmpty(menuId) || !(ObjectID.isValid(menuId))) {
+    return res.status(400).send({
+      status: "error",
+      error: "Invalid Menu ID"
+    });
+  }
+
+  Menu.findOneAndUpdate({
+    _id: ObjectID(menuId)
+  },
+  {
+    $set: {
+      isActive: false
+    }
+  }
+).then((item) => {
+  item.isActive = false;
+  res.status(200).send({
+    status: 'OK',
+    menuItem: item,
+    error: "null"
+  });
+}).catch((error) => {
+  error.status = "error";
+  error.menuItem = "null";
+  res.status(400).send(error);
+});
+});
+
 module.exports = router;
 
 
