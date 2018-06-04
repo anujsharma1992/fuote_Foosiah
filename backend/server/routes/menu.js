@@ -119,8 +119,8 @@ router.post('/activate/:menuId', authenticateCook, (req,res) => {
 
 // get all activated items of a specific cook
 router.get('/activated', (req,res) => {
-  const token = req.header('x-auth');
-  Cook.findByToken(token).then((cook) => {
+  const id = req.query.id;
+  Cook.findById(id).then((cook) => {
     if (!cook) {
       return res.status(404).send({
         status: '404',
