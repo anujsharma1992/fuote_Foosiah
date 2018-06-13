@@ -1,4 +1,4 @@
-# Fooisah Food Delivery
+# Foosiah Food Delivery
 
 If you've stumbled upon here by "accident", we are a small startup trying to achieve something amazing.
 
