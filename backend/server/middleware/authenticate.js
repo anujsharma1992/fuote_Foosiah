@@ -1,8 +1,11 @@
 const {Cook} = require('./../models/cook');
 const {Customer} = require('./../models/customer');
+const decode = require('jwt-decode');
 
 let authenticateCook = (req,res,next) => {
   let token = req.header('x-auth');
+  let decoded = decode(token);
+  console.log(decoded);
   Cook.findByToken(token).then((cook) => {
     if(!cook) {
       return Promise.reject({

@@ -39,6 +39,20 @@ const MenuSchema = mongoose.Schema({
       message : `{VALUE} is not a valid Mongo DB ID`
     }
   },
+  cuisines: [
+    {
+      id: {
+        type: String,
+        validate: {
+          validator: function(id) {
+            return ObjectID.isValid(id);
+          },
+        message : `{VALUE} is not a valid Mongo DB ID`
+        }   
+      },
+      name: String
+    }
+  ],
   isActive: {
     type: Boolean,
     default: false

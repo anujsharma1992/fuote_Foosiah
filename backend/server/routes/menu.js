@@ -10,7 +10,6 @@ const router = express.Router();
 
 // route to add new menu items
 router.post('/add', authenticateCook, (req,res) => {
-  const cook = req.user;
   const items = _.pick(req.body, ['menuItems']);
   if (items.menuItems.length === 0) {
     return res.status(400).send({
