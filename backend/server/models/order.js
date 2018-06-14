@@ -15,11 +15,6 @@ const OrderSchema = mongoose.Schema({
       }
     }
   }],
-  // total cost
-  totalCost: {
-    type: Number,
-    required: [true]
-  },
   // ID of the customer 
   customerId: {
     type: String,
@@ -46,10 +41,20 @@ const OrderSchema = mongoose.Schema({
     enum: ['COD', 'Online', 'Paytm'],
     required: [true]
   },
+  paymentId: String,
   dateAndTime: {
     type: Date,
     required: Date.now
-  }
+  },
+  status: {
+    type: String,
+    enum: ['Requested','Confirmed','Cooked','Delivered','Cancelled-User','Cancelled-Cook']
+  },
+  estimatedTime : Number,
+  placedTime: Number,
+  acceptedTime: Number,
+  cookedTime: Number,
+  deliveredTime: Number 
   // TODO Payment Related Items
 });
 

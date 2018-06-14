@@ -1,0 +1,37 @@
+Register a cook
+
+endpoint /register/cook
+body {
+  email : String,
+  password: String,
+  phoneNumber: Number,
+  firstName: String,
+  lastName: String,
+  addresses : List [{
+    address: String,
+    lat: String,
+    lon: String
+  }],
+  dob: String,
+  profilePhoto: String,
+  kitchenName: String,
+  isActive: Boolean
+}
+
+Register a customer
+endpoint /register/customer
+
+body {
+  email : String,
+  password: String,
+  phoneNumber: Number,
+  firstName: String,
+  lastName: String,
+  addresses : List [{
+    address: String,
+    lat: String,
+    lon: String
+  }],
+  dob: String,
+  profilePhoto: String
+}
