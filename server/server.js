@@ -23,6 +23,10 @@ app.get('/', (req,res) => {
   res.send("Welcome to foosiah");
 });
 
+app.get('/about', (req,res) => {
+  res.send('This is the about page');
+})
+
 // routes to register cook or customer
 app.use('/register', registerRoutes);
 
