@@ -5,36 +5,12 @@ const OrderSchema = mongoose.Schema({
   menuItems: [{
     name: String,
     cost: Number,
-    id : {
-      type: String,
-      validate: {
-        validator: function(id) {
-          return ObjectID.isValid(id);
-        },
-        message : `{VALUE} is not a valid Mongo DB ID`
-      }
-    }
+    menuId : String
   }],
   // ID of the customer 
-  customerId: {
-    type: String,
-    validate: {
-      validator: function(id) {
-        return ObjectID.isValid(id);
-      },
-      message : `{VALUE} is not a valid Mongo DB ID`
-    }
-  },
+  customerId: String,
   // ID of the cook
-  cookId: {
-    type: String,
-    validate: {
-      validator: function(id) {
-        return ObjectID.isValid(id);
-      },
-      message : `{VALUE} is not a valid Mongo DB ID`
-    }
-  },
+  cookId: String,
   // Payment Type
   paymentType: {
     type: String,
@@ -50,7 +26,7 @@ const OrderSchema = mongoose.Schema({
     type: String,
     enum: ['Requested','Confirmed','Cooked','Delivered','Cancelled-User','Cancelled-Cook']
   },
-  estimatedTime : Number,
+  estimatedTime : String,
   placedTime: Number,
   acceptedTime: Number,
   cookedTime: Number,

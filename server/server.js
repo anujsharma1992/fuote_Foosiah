@@ -13,6 +13,7 @@ const detailRoutes = require('./routes/details');
 const menuRoutes = require('./routes/menu');
 const cookRoutes = require('./routes/cook');
 const cuisineRoutes = require('./routes/cusine');
+const orderRoutes = require('./routes/order');
 
 const SERVER_PORT = process.env.PORT || 3000;
 
@@ -47,6 +48,9 @@ app.use('/cook', cookRoutes);
 
 // routes related to cuisines
 app.use('/cuisines', cuisineRoutes);
+
+// routes related to orders
+app.use('/orders', orderRoutes);
 
 app.listen(SERVER_PORT , () => {
   console.log(`Server started at port ${SERVER_PORT}`)
