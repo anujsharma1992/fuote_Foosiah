@@ -10,6 +10,8 @@ router.post('/new', authenticateCustomer, async (req,res) => {
   const customer = req.customer;
   let order = _.pick(req.body, ['menuItems','cookId','paymentType','paymentId','estimatedTime','placedTime']);
   order.customerId = customer._id;
+  order.customerFirstName = customer.firstName;
+  order.customerLastName = customer.lastName;
 
   order.status = 'Requested';
   order.dateAndTime = Date.now();
@@ -49,7 +51,7 @@ router.get('/activated/all', authenticateCook, async (req,res) => {
     status: 'OK',
     error: null,
     orders: ordersFromDb
-  });
+  })
 
 });
 

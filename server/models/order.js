@@ -11,6 +11,8 @@ const OrderSchema = mongoose.Schema({
   customerId: String,
   // ID of the cook
   cookId: String,
+  customerFirstName: String,
+  customerLastName: String,
   // Payment Type
   paymentType: {
     type: String,
