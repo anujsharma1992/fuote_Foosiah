@@ -101,5 +101,52 @@ router.post('/accept', authenticateCook, async (req,res) => {
 
 });
 
+router.post('/reject', authenticateCook, async (req,res) => {
+
+  const orderId = req.query.orderId;
+  
+  if (_.isEmpty(orderId)) {
+    return res.status(400).send({
+      status: '400',
+      error: 'Invalid Order ID',
+      order: null
+    });
+  }
+
+  if (!ObjectID.isValid(orderId)) {
+    return res.status(400).send({
+      status: '400',
+      error: 'Invalid Order ID',
+      order: null
+    });
+  }
+
+  let order = await Order.findByIdAndUpdate(orderId, {
+    $set: {
+      status: 'Cancelled-Cook'
+    }
+  });
+
+  if (order == null) {
+    return res.status(400).send({
+      status: '400',
+      error: 'Unable to find an order with this ID',
+      order: null
+    });
+  }
+
+  order.status = 'Cancelled-Cook';
+
+  res.status(200).send({
+    status: 'OK',
+    error: null,
+    order
+  });
+
+  console.log("Order is accpeted "+ order);
+
+});
+
+
 
 module.exports = router;
