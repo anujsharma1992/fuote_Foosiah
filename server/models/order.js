@@ -5,7 +5,8 @@ const OrderSchema = mongoose.Schema({
   menuItems: [{
     name: String,
     cost: Number,
-    menuId : String
+    menuId : String,
+    quantity: Number
   }],
   // ID of the customer 
   customerId: String,

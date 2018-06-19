@@ -55,6 +55,7 @@ router.get('/activated/all', authenticateCook, async (req,res) => {
 
 });
 
+// route for the cook to accept an order
 router.post('/accept', authenticateCook, async (req,res) => {
 
   const orderId = req.query.orderId;
@@ -101,6 +102,7 @@ router.post('/accept', authenticateCook, async (req,res) => {
 
 });
 
+// route for cook to reject the order
 router.post('/reject', authenticateCook, async (req,res) => {
 
   const orderId = req.query.orderId;
@@ -147,6 +149,7 @@ router.post('/reject', authenticateCook, async (req,res) => {
 
 });
 
+// route for cook to dispatch the order
 router.post('/done', authenticateCook, async (req,res) => {
 
   const orderId = req.query.orderId;
