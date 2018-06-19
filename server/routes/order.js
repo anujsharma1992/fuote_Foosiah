@@ -45,7 +45,9 @@ router.get('/activated/all', authenticateCook, async (req,res) => {
   });
   let ordersFromDb = [];
   if (orders != null) {
-    ordersFromDb = orders;
+    ordersFromDb = orders.filter((order) => {
+      return order.status == 'Requested' && order.status != 'Confirmed'
+    });
   }
   res.status(200).send({
     status: 'OK',
